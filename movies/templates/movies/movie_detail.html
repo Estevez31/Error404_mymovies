@@ -1,0 +1,38 @@
+{% extends 'movies/base.html' %}
+
+{% block article %}
+    <div class="flex h-[32rem] bg-slate-200 my-4">
+            <img class="" src="https://image.tmdb.org/t/p/w600_and_h900_bestv2/{{movie.poster_path}}" alt="the imitation game poster">
+            <header>
+            <h1 class="movie-title">{{movie.title}}</h1>
+            <div class="movie-info">
+                <p>{{ movie.release_date|date:"Y" }}</p> 
+                <ul class="movie-genre"> 
+                    <li> History | </li>
+                    <li> Drama | </li>
+                    <li> Thriller | </li>
+                    <li> War </li>
+                </ul>
+                <p>- 1h 53m</p>  
+            </div>         
+            
+            <h1>Overview</h1>
+            <p>{{movie.overview}}</p>
+
+            <details>
+                <summary>Production Details</summary>
+                <p> Budget: {{movie.budget}} </p>
+                <p> Revenue: {{movie.revenue}}</p>
+            </details>
+            <details>
+                <summary>Review</summary>
+                <p> Reviews: {{reviews.rating}} </p>
+                <p> Total of <a href= {% url 'reviews' movie.id %}>reviews</a></p>
+            </details>
+            </div>
+                <a href="{% url 'index' %}" class="rounded-md bg-gray-300 px-3 py-2 text-sm font-semibold text-gray-700 shadow-sm 
+                                        hover:bg-gray-400 focus-visible:outline focus-visible:outline-2 
+                                        focus-visible:outline-offset-2 focus-visible:outline-gray-600">Regresar al menú</a>
+            </div>
+        </header>
+{% endblock %}

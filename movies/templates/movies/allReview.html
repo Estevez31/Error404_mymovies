@@ -1,0 +1,45 @@
+{% extends "movies/base.html" %}
+
+{% block article %}
+<form hx-post="/movies/{{ movie.id }}/allReview/" hx-swap="outerHTML" _="on htmx:afterOnLoad log 'Saved' wait 2s set #submit-button.innerText to 'Save'">
+    {% csrf_token %}
+    {{ form }}
+    <div>
+        <br>
+        <p> {{movie.title}} </p>
+        <p> Rating: {{ reviews.rating }} </p>
+         {% if user.is_authenticated %}
+            <a href="{% url 'review'  movie.id %}">Hacer una reseña</a>
+        {% else %}
+            <div style="text-aling: right;"> 
+                 <p class="rounded-md bg-gray-300 px-3 py-2 text-sm font-semibold text-gray-700 shadow-sm 
+                                        hover:bg-gray-400 focus-visible:outline focus-visible:outline-2 
+                                        focus-visible:outline-offset-2 focus-visible:outline-gray-600">Debes iniciar sesión</p>
+            </div>
+        {% endif %}
+    </div>
+    <div class="flex h-[32rem] bg-slate-200 my-4">
+        
+        <header>
+            <br>
+            <h1 class="movie-title">Reviews of the movie:</h1>
+        </header>
+        <body>
+            {% if reviews %}
+                <ul>
+                    {% for review in reviews %}
+                        <br>
+                        <br>
+                        <li>Usuario: {{ review.user }}, Película: {{ review.movie }}, Rating: {{ review.rating }}, Reviews: {{ review.review}}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+        </body>
+    </div>
+    </div>
+        <a href="{% url 'index' %}" class="rounded-md bg-gray-300 px-3 py-2 text-sm font-semibold text-gray-700 shadow-sm 
+                                    hover:bg-gray-400 focus-visible:outline focus-visible:outline-2 
+                                    focus-visible:outline-offset-2 focus-visible:outline-gray-600">Regresar al menú</a>
+    </div>
+</form>
+{% endblock %}
