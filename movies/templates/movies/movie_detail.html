@@ -6,14 +6,14 @@
             <header>
             <h1 class="movie-title">{{movie.title}}</h1>
             <div class="movie-info">
-                <p>{{ movie.release_date|date:"Y" }}</p> 
-                <ul class="movie-genre"> 
-                    <li> History | </li>
-                    <li> Drama | </li>
-                    <li> Thriller | </li>
-                    <li> War </li>
+                <p> Year: {{ movie.release_date|date:"Y" }}</p> 
+                <p>Genders: </p>
+                <ul class="movie-genre">
+                    {% for gen in movie.genres.all %}
+                        <li> * {{ gen.name }}</li>
+                    {% endfor %}
                 </ul>
-                <p>- 1h 53m</p>  
+                <p>Duration: {{movie.running_time}} minutes</p>  
             </div>         
             
             <h1>Overview</h1>
@@ -32,7 +32,7 @@
             </div>
                 <a href="{% url 'index' %}" class="rounded-md bg-gray-300 px-3 py-2 text-sm font-semibold text-gray-700 shadow-sm 
                                         hover:bg-gray-400 focus-visible:outline focus-visible:outline-2 
-                                        focus-visible:outline-offset-2 focus-visible:outline-gray-600">Regresar al menú</a>
+                                        focus-visible:outline-offset-2 focus-visible:outline-gray-600">Return to menu</a>
             </div>
         </header>
 {% endblock %}

@@ -1,24 +1,26 @@
 {% extends "movies/base.html" %}
 
 {% block article %}
-<form hx-post="/movies/{{ movie.id }}/allReview/" hx-swap="outerHTML" _="on htmx:afterOnLoad log 'Saved' wait 2s set #submit-button.innerText to 'Save'">
+<form hx-post="/movies/{{ movie.id }}/allReview/" hx-swap="outerHTML>
     {% csrf_token %}
     {{ form }}
     <div>
         <br>
         <p> {{movie.title}} </p>
-        <p> Rating: {{ reviews.rating }} </p>
-         {% if user.is_authenticated %}
-            <a href="{% url 'review'  movie.id %}">Hacer una reseña</a>
+        {% if review %}
+            <p> Rating: {{ review.rating }} </p>
+        {% endif %}
+        {% if user.is_authenticated %}
+            <a href="{% url 'review'  movie.id %}">Make a review</a>
         {% else %}
             <div style="text-aling: right;"> 
                  <p class="rounded-md bg-gray-300 px-3 py-2 text-sm font-semibold text-gray-700 shadow-sm 
                                         hover:bg-gray-400 focus-visible:outline focus-visible:outline-2 
-                                        focus-visible:outline-offset-2 focus-visible:outline-gray-600">Debes iniciar sesión</p>
+                                        focus-visible:outline-offset-2 focus-visible:outline-gray-600">You must log in</p>
             </div>
         {% endif %}
     </div>
-    <div class="flex h-[32rem] bg-slate-200 my-4">
+    <div class="flex h-[32rem] bg-slate-200 my-3">
         
         <header>
             <br>
@@ -27,10 +29,10 @@
         <body>
             {% if reviews %}
                 <ul>
+                    <br>
+                    <br>
                     {% for review in reviews %}
-                        <br>
-                        <br>
-                        <li>Usuario: {{ review.user }}, Película: {{ review.movie }}, Rating: {{ review.rating }}, Reviews: {{ review.review}}</li>
+                        <li>User: {{ review.user }}, Movie: {{ review.movie }}, Rating: {{ review.rating }}, Reviews: {{ review.review}}</li>
                     {% endfor %}
                 </ul>
             {% endif %}
@@ -39,7 +41,7 @@
     </div>
         <a href="{% url 'index' %}" class="rounded-md bg-gray-300 px-3 py-2 text-sm font-semibold text-gray-700 shadow-sm 
                                     hover:bg-gray-400 focus-visible:outline focus-visible:outline-2 
-                                    focus-visible:outline-offset-2 focus-visible:outline-gray-600">Regresar al menú</a>
+                                    focus-visible:outline-offset-2 focus-visible:outline-gray-600">Return to menu</a>
     </div>
 </form>
 {% endblock %}

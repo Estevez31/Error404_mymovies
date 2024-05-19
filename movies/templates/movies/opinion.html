@@ -1,24 +1,26 @@
 {% extends "movies/base.html" %}
 
 {% block article %}
-<form hx-post="/movies/{{ movie.id }}/opinion/" hx-swap="outerHTML" _="on htmx:afterOnLoad log 'Saved' wait 2s set #submit-button.innerText to 'Save'">
+<div>
+    <h1 class="movie-title">Reviews of the movie: {{ movie.title }}</h1>
+</div>
+<form hx-post="/movies/{{ movie.id }}/opinion/" method="post" hx-post="true" hx-swap="outerHTML"">
     {% csrf_token %}
     {{ form }}
-    <div>
-        <br>
-        <h1> {{movie.title}} </h1>
-    </div>
     <div class="mt-6 flex items-center justify-end gap-x-6">
-        
-        <button type="button" class="text-sm font-semibold leading-6 text-gray-900">Cancel</button>
+        <button type="button" class="text-sm font-semibold leading-6 text-gray-900" onclick="window.location.href='{% url 'index' %}'">Cancel</button>
         <button id="submit-button" type="submit" class="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm 
                                         hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 
-                                        focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Save</button>
+                                        focus-visible:outline-offset-2 focus-visible:outline-indigo-600" formnovalidate>Save</button>
     </div>
 </form>
-</div>
-    <a href="{% url 'index' %}" class="rounded-md bg-gray-300 px-3 py-2 text-sm font-semibold text-gray-700 shadow-sm 
-                                hover:bg-gray-400 focus-visible:outline focus-visible:outline-2 
-                                focus-visible:outline-offset-2 focus-visible:outline-gray-600">Regresar al menú</a>
-</div>
+<script>
+    // Función para mostrar un mensaje de éxito después de enviar el formulario
+    function showSuccessMessage() {
+        alert("¡El review se ha guardado con éxito!");
+    }
+
+    // Agregar un evento para mostrar el mensaje de éxito después de enviar el formulario
+    document.getElementById("submit-button").addEventListener("click", showSuccessMessage);
+</script>
 {% endblock %}

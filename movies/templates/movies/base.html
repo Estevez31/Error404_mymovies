@@ -9,15 +9,15 @@
     </head>
     <body class="font-sans max-w-4xl mx-auto">
         {% if user.is_authenticated %}
-            <p>¡Bienvenido {{user.username}} !</p>
+            <p>¡Welcome {{user.username}} !</p>
             <a href="http://3.94.71.170:8000/admin/login/" class="rounded-md bg-gray-300 px-3 py-2 text-sm font-semibold text-gray-700 shadow-sm 
                                         hover:bg-gray-400 focus-visible:outline focus-visible:outline-2 
-                                        focus-visible:outline-offset-2 focus-visible:outline-gray-600">Cerrar sesion</a>
+                                        focus-visible:outline-offset-2 focus-visible:outline-gray-600">Sign off</a>
         {% else %}
             <div style="text-aling: right;"> 
                 <a href="http://3.94.71.170:8000/admin/login/" class="rounded-md bg-gray-300 px-3 py-2 text-sm font-semibold text-gray-700 shadow-sm 
                                         hover:bg-gray-400 focus-visible:outline focus-visible:outline-2 
-                                        focus-visible:outline-offset-2 focus-visible:outline-gray-600">Iniciar sesion</a>
+                                        focus-visible:outline-offset-2 focus-visible:outline-gray-600">Log in</a>
             </div>
         {% endif %}
         <br>
@@ -32,10 +32,10 @@
     </article>
     <br>
     <footer "h-12 w-full text-center mx-auto mt-5 border-b-2 border-sky-500">
-        <p> Equipo: Error 404 </p>
+        <p> Team: Error 404 </p>
         <p><a href="https://github.com/Estevez31/Error404_mymovies" class="rounded-md bg-gray-300 px-3 py-2 text-sm font-semibold text-gray-700 shadow-sm 
                                         hover:bg-gray-400 focus-visible:outline focus-visible:outline-2 
-                                        focus-visible:outline-offset-2 focus-visible:outline-gray-600"> GitHub Repository</a></p>
+                                        focus-visible:outline-offset-2 focus-visible:outline-gray-600">GitHub Repository</a></p>
     </footer>
     </body>
 </html>
