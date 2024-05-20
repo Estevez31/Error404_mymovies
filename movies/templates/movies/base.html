@@ -5,37 +5,50 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link href="/static/movies/css/output.css" rel="stylesheet">
-        
     </head>
-    <body class="font-sans max-w-4xl mx-auto">
-        {% if user.is_authenticated %}
-            <p>¡Welcome {{user.username}} !</p>
-            <a href="http://3.94.71.170:8000/admin/login/" class="rounded-md bg-gray-300 px-3 py-2 text-sm font-semibold text-gray-700 shadow-sm 
-                                        hover:bg-gray-400 focus-visible:outline focus-visible:outline-2 
-                                        focus-visible:outline-offset-2 focus-visible:outline-gray-600">Sign off</a>
-        {% else %}
-            <div style="text-aling: right;"> 
-                <a href="http://3.94.71.170:8000/admin/login/" class="rounded-md bg-gray-300 px-3 py-2 text-sm font-semibold text-gray-700 shadow-sm 
-                                        hover:bg-gray-400 focus-visible:outline focus-visible:outline-2 
-                                        focus-visible:outline-offset-2 focus-visible:outline-gray-600">Log in</a>
-            </div>
-        {% endif %}
-        <br>
-    <header class="h-12 w-full text-center mx-auto mt-5 border-b-2 border-sky-500">
-        <h1 class="font-medium text-3xl">My Movies</h1>
-    </header>
     
-    <article>
-    {% block article %}
+    <body class="font-sans max-w-4xl mx-auto h-14 
+                bg-gradient-to-r from-teal-200 to-green-200">
+        <div class="h-12 w-full text-right mx-auto mt-5">
         
-    {% endblock %}
-    </article>
-    <br>
-    <footer "h-12 w-full text-center mx-auto mt-5 border-b-2 border-sky-500">
-        <p> Team: Error 404 </p>
-        <p><a href="https://github.com/Estevez31/Error404_mymovies" class="rounded-md bg-gray-300 px-3 py-2 text-sm font-semibold text-gray-700 shadow-sm 
-                                        hover:bg-gray-400 focus-visible:outline focus-visible:outline-2 
-                                        focus-visible:outline-offset-2 focus-visible:outline-gray-600">GitHub Repository</a></p>
-    </footer>
+            {% if user.is_authenticated %}
+                <p class="hover:font-serif underline decoration-wavy decoration-pink-500 decoration-2 
+                        leading-loose tracking-wide text-xl hover:font-bold capitalize drop-shadow-md">¡Welcome {{user.username}} !</p>
+                <br>
+                <a href="http://3.94.71.170:8000/admin/login/" class="rounded-full bg-red-500 px-3 py-2 text-sm font-bold text-white shadow-sm 
+                    hover:bg-gray-400 focus-visible:outline focus-visible:outline-2 
+                    focus-visible:outline-offset-2 focus-visible:outline-gray-600 drop-shadow-md">Sign off</a>
+            {% else %}
+                <div style="text-aling: right;"> 
+                    <a href="http://3.94.71.170:8000/admin/login/" class="rounded-full bg-gray-300 px-3 py-2 text-sm font-semibold text-gray-700 shadow-sm 
+                        hover:bg-gray-400 focus-visible:outline focus-visible:outline-2 
+                        focus-visible:outline-offset-2 focus-visible:outline-gray-600 drop-shadow-md">Log in</a>
+                </div>
+            {% endif %}
+        </div>
+        <br>
+        
+        <header class="h-12 w-full text-center mx-auto mt-5 border-b-2 border-sky-500">
+            <h1 class="font-medium text-3xl">My Movies</h1>
+        </header>
+    
+        <article class="font-sans leading-loose tracking-wide text-balance text-center">
+            {% block article %}
+                
+            {% endblock %}
+        </article>
+        <br>
+        
+        <footer class="h-1 w-full text-center mx-auto mt-5 border-b-2 border-sky-500">
+            <div>
+                <br>
+                <p class= "rounded-md text-blue-950 hover:text-sky-400 font-bold"> Team: Error 404 </p>
+                <br>
+                <a href=" https://github.com/Estevez31/Error404_mymovies" class="rounded-full bg-cyan-500 hover:bg-cyan-600 px-3 py-2 text-sm font-semibold text-white shadow-sm 
+                                           focus-visible:outline focus-visible:outline-2 
+                                           focus-visible:outline-offset-2 focus-visible:outline-indigo-600 drop-shadow-md">GitHub Repository</a>
+                <br>
+            </div>
+        </footer>
     </body>
 </html>

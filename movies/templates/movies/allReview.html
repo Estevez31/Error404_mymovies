@@ -4,44 +4,53 @@
 <form hx-post="/movies/{{ movie.id }}/allReview/" hx-swap="outerHTML>
     {% csrf_token %}
     {{ form }}
+    
     <div>
         <br>
-        <p> {{movie.title}} </p>
+        
+        <h1 class="font-bold text-center text-xl"> {{movie.title}} </h1>
         {% if review %}
-            <p> Rating: {{ review.rating }} </p>
+            <p><a class="font-bold text-center">Rating: </a>{{ review.rating }} ✨</p>
         {% endif %}
         {% if user.is_authenticated %}
-            <a href="{% url 'review'  movie.id %}">Make a review</a>
+            <a class = "text-center font-bold text-purple-500 no-underline hover:underline hover:font-bold hover:text-blue-500 hover:text-xl" href="{% url 'review'  movie.id %}">👉 Make a review 👈</a>
         {% else %}
+        
             <div style="text-aling: right;"> 
                  <p class="rounded-md bg-gray-300 px-3 py-2 text-sm font-semibold text-gray-700 shadow-sm 
                                         hover:bg-gray-400 focus-visible:outline focus-visible:outline-2 
                                         focus-visible:outline-offset-2 focus-visible:outline-gray-600">You must log in</p>
             </div>
+            
         {% endif %}
     </div>
-    <div class="flex h-[32rem] bg-slate-200 my-3">
+    
+    <div class="flex h-[10rem] bg-white my-2 rounded-lg hover:h-[20rem] hover:drop-shadow-md hover:bg-gray-100">
         
         <header>
             <br>
-            <h1 class="movie-title">Reviews of the movie:</h1>
+            <h1 class="movie-title font-bold capitalize text-center">Reviews of the movie</h1>
         </header>
+        
         <body>
             {% if reviews %}
-                <ul>
+                <ul class="capitalize">
                     <br>
                     <br>
                     {% for review in reviews %}
-                        <li>User: {{ review.user }}, Movie: {{ review.movie }}, Rating: {{ review.rating }}, Reviews: {{ review.review}}</li>
+                        <li><a class="font-bold">User: </a> <a class="underline decoration-sky-500 decoration-2">{{ review.user }}</a>, <a class="font-bold">Movie: </a><a class="underline decoration-pink-500 decoration-2">{{ review.movie }}</a>, <a class="font-bold">Rating: </a><a class="underline decoration-indigo-500 decoration-2">{{ review.rating }}</a>, <a class="font-bold">Reviews: </a><a class="underline decoration-sky-500 decoration-2">{{ review.review}}</a></li>
                     {% endfor %}
                 </ul>
             {% endif %}
         </body>
+        
     </div>
-    </div>
-        <a href="{% url 'index' %}" class="rounded-md bg-gray-300 px-3 py-2 text-sm font-semibold text-gray-700 shadow-sm 
-                                    hover:bg-gray-400 focus-visible:outline focus-visible:outline-2 
-                                    focus-visible:outline-offset-2 focus-visible:outline-gray-600">Return to menu</a>
+    
+    <div class= "text-right">
+        <a href="{% url 'index' %}" class="rounded-full bg-green-400 px-3 py-2 text-sm hover:bg-purple-500 
+                                        font-semibold text-white shadow-sm 
+                                        focus-visible:outline focus-visible:outline-2 
+                                        focus-visible:outline-offset-2 focus-visible:outline-gray-600 drop-shadow-md">Return to menu</a>
     </div>
 </form>
 {% endblock %}
