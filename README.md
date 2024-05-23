@@ -7,7 +7,7 @@
 # **SEMESTRE: Febrero – Junio 2024**
 # **Ing. En Sistemas Computacionales**
 # **Programación Web**
-## **Profesor: Maria Garcia**
+## **Profesor: Jose Mario Garcia Valdez**
 # **Alumnos:**
 ## **Estevez Ramirez Maria Teresa - 20211773**
 ## **Hernández Sáenz Sara Jazmín - 20211791**
