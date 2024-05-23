@@ -4,6 +4,7 @@ from movies.models import Movie, MovieReview, Genre
 from .forma import ReviewForm
 from .reviewAll import ReviewMovie
 from django.contrib.auth.models import User
+from django.contrib.auth import authenticate, login
 
 def review(request, movie_id):
     movie = get_object_or_404(Movie, pk=movie_id)
@@ -41,3 +42,23 @@ def ReviewMovie(request, movie_id):
     reviews = MovieReview.objects.filter(movie__title=movie_title)
     context = {'movie': movie, 'reviews': reviews, 'review': review}  
     return render(request, "movies/allReview.html", context=context)
+    
+def login_view(request):
+    if request.method == "POST":
+        username = request.POST['username']
+        password = request.POST['password']
+        user = authenticate(request, username=username, password=password)
+        if user is not None:
+            login(request, user)
+            return redirect('index') 
+        else:
+            return render(request, 'login.html', {'error': 'Invalid username or password'})
+    else:
+        return render(request, 'movies/login.html')
+        
+def logout_view(request):
+    if request.method == 'POST':
+        logout(request)
+        return redirect('index')  # Redirige a la página de inicio después del logout
+    else:
+        return redirect('index')

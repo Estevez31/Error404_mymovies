@@ -2,13 +2,20 @@
 
 {% block article %}
 {% if movie_list %}
-    <ul>
-    {% for movie in movie_list%}
-        <li><a hx-post="/movies/{{ movie.id }}/" hx-swap="innerHTML" href="/movies/{{ movie.id }}/">{{ movie.title }}</a></li>
-    {% endfor %}
-    </ul>
-{% else %}
-    <p>No movies are available.</p>
+    <div id="movie_list" class="flex flex-wrap">
+        {% for movie in movie_list%}
+            <figure class="w-48 h-80 mx-2 my-6 bg-green-100">
+                <img class="w-48 h-64 rounded-md drop-shadow-lg" src="https://image.tmdb.org/t/p/w600_and_h900_bestv2/{{movie.poster_path}}" 
+                alt="{{movie.title}}">
+                <figurecaption class="p-2" >
+                    <a  class = " mt-2 no-underline hover:underline hover:font-bold hover:text-blue-500" hx-post="/movies/{{ movie.id }}/" hx-swap="innerHTML" href="/movies/{{ movie.id }}/">{{ movie.title }}</a>
+                    <p class="p-2">
+                        {{movie.release_date|date:"Y" }}
+                    </p>
+                </figurecaption>
+            </figure>
+        {% endfor %}
+    </div>
 {% endif %}
 
 {% endblock article %}
