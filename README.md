@@ -7,6 +7,8 @@
 # **SEMESTRE: Febrero – Junio 2024**
 # **Ing. En Sistemas Computacionales**
 # **Programación Web**
-# **Estevez Ramirez Maria Teresa - 20211773**
-# **Hernández Sáenz Sara Jazmín - 20211791**
-## FECHA: 24 de Mayo del 2024
+## **Profesor: Maria Garcia**
+# **Alumnos:**
+## **Estevez Ramirez Maria Teresa - 20211773**
+## **Hernández Sáenz Sara Jazmín - 20211791**
+# FECHA: 24 de Mayo del 2024
