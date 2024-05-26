@@ -5,9 +5,7 @@ from .forma import ReviewForm
 from .reviewAll import ReviewMovie
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login
-import requests
-
-api_key = '706e6231b343905d4bcddfa6a6b91de9'
+from tmdbv3api import TMDb, People
 
 def review(request, movie_id):
     movie = get_object_or_404(Movie, pk=movie_id)
@@ -31,14 +29,7 @@ def index(request):
 def movie_detail(request, movie_id):
     movie = Movie.objects.get(pk=movie_id)
     reviews = MovieReview.objects.get(pk=movie_id) 
-    
-    # Obtener todas las películas disponibles
-    all_movies = Movie.objects.exclude(pk=movie_id)
-    
-    # Filtrar las películas recomendadas excluyendo la película consultada
-    recommended_movies = all_movies[:11] 
-    
-    context = {'movie': movie, 'reviews': reviews, 'recommended_movies': recommended_movies}  
+    context = {'movie': movie, 'reviews': reviews}  
     return render(request, "movies/movie_detail.html", context=context)
 
 def get_movie_title(movie_id):
@@ -72,45 +63,26 @@ def logout_view(request):
         return redirect('index') 
     else:
         return redirect('index')
-
+    
 def movie_actors_view(request, movie_id, actor_name):
-   # Obtén el objeto de la película y el actor de la base de datos
     movie = get_object_or_404(Movie, pk=movie_id)
     actor_job = get_object_or_404(Person, name=actor_name)
     actors = MovieCredit.objects.filter(movie=movie, person=actor_job).select_related('person')
     
-    # Endpoint para buscar personas en TMDb
-    url_busqueda = f"https://api.themoviedb.org/3/search/person?api_key={api_key}&query={actor_name}"
-
-    # Realizar la solicitud de búsqueda a TMDb
-    respuesta_busqueda = requests.get(url_busqueda)
-    datos_busqueda = respuesta_busqueda.json()
+    # Configurar TMDb
+    tmdb = TMDb()
+    tmdb.api_key = '706e6231b343905d4bcddfa6a6b91de9'
     
-    actor_image_url = None
-    actor_biography = None
+    # Buscar actor por nombre
+    people = People()
+    search_result = people.search_person(actor_name)
     
-    if 'results' in datos_busqueda and datos_busqueda['results']:
-        # Tomar el primer resultado de la búsqueda
-        actor = datos_busqueda['results'][0]
-        actor_id = actor.get('id')
-        perfil_path = actor.get('profile_path')
-        
-        if perfil_path:
-            # Construir la URL completa de la imagen del perfil
-            actor_image_url = f"https://image.tmdb.org/t/p/w500{perfil_path}"
-        
-        # Obtener más detalles del actor incluyendo la biografía
-        url_detalle_actor = f"https://api.themoviedb.org/3/person/{actor_id}?api_key={api_key}"
-        respuesta_detalle_actor = requests.get(url_detalle_actor)
-        datos_detalle_actor = respuesta_detalle_actor.json()
-        
-        actor_biography = datos_detalle_actor.get('biography')
+    # Obtener la URL de la imagen del primer resultado
+    if search_result:
+        actor_id = search_result[0].id
+        actor_details = people.person_details(actor_id)
+        actor_image_url = f"https://image.tmdb.org/t/p/w500{actor_details.profile_path}"
+    else:
+        actor_image_url = None
     
-    context = {
-        'movie': movie,
-        'actors': actors,
-        'actor_image_url': actor_image_url,
-        'actor_biography': actor_biography,
-    }
-    
-    return render(request, 'movies/movie_actors.html', context)
+    return render(request, 'movies/movie_actors.html', {'movie': movie, 'actors': actors, 'actor_image_url': actor_image_url})

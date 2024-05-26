@@ -1,16 +1,15 @@
 {% extends 'movies/base.html' %}
 
 {% block article %}
-    <div class="flex h-[36rem] bg-slate-200 my-4 bg-cyan-200 rounded-r-lg border-l-4 border-blue-500 flex space-x-4 drop-shadow-md">
-        <img class="h-[32rem] rounded-md drop-shadow-lg" src="https://image.tmdb.org/t/p/w600_and_h900_bestv2/{{movie.poster_path}}" alt="the imitation game poster">
-        <header>
+    <div class="flex flex-wrap h-auto bg-slate-200 my-4 bg-cyan-200 rounded-r-lg border-l-4 border-blue-500 flex space-x-4 drop-shadow-md">
+        <img class="w-64 h-[36rem] sm:w-64 img-movie rounded-md drop-shadow-lg" src="https://image.tmdb.org/t/p/w600_and_h900_bestv2/{{movie.poster_path}}" alt="the imitation game poster">
+        <div class="w-full sm:w-4/6 bg-green-100 movie-info">
             <h1 class="movie-title font-bold">{{movie.title}}</h1>
-        
-            <div class="movie-info">
-                <a class="font-bold">Year:</a> <a>{{ movie.release_date|date:"Y" }}</a> 
-                <p class="font-bold">Genders:</p>
+            <div class="w-auto sm:w-4/6 movie-info text-center">
+                <a class="font-bold text-center">Year:</a> <a>{{ movie.release_date|date:"Y" }}</a> 
+                <p class="font-bold text-center">Genders:</p>
                 
-                <ul class="movie-genre list-disc list-inside">
+                <ul class="movie-genre list-disc list-inside text-center">
                     {% for gen in movie.genres.all %}
                         <li>  {{ gen.name }}</li>
                     {% endfor %}
@@ -33,11 +32,26 @@
                 <p><a class="font-bold">Reviews: </a>{{reviews.rating}} </p>
                 <p>Total of <a class = "no-underline hover:underline hover:font-bold hover:text-blue-500" href= {% url 'reviews' movie.id %}>reviews</a></p>
             </details>
-            
-        </header>
+        </div>
+        <div class="w-full bg-green-200 movie-cast">
+            <h1 class="font-bold">{{movie.title}} Cast</h1>
+             <ul class="movie-credits list-disc list-inside flex grid grid-cols-4 gap-4 text-left text-ellipsis overflow-hidden">
+                {% for actor in movie.credits.all %}
+                    <li><a id="actor-btn" class = "no-underline hover:underline hover:font-bold hover:text-blue-500" href= {% url 'cast' movie.id actor.name %}>{{ actor.name }}</li></a>
+                {% endfor %}
+            </ul>
+        </div>
     </div>
-    
+    <div class="w-full bg-green-100 movie-cast">
+        <h1 class="font-bold">Recommended Movies</h1>
+        <ul class="list-disc list-inside flex grid grid-cols-4 gap-4 text-left text-ellipsis overflow-hidden">
+            {% for recommended_movie in recommended_movies %}
+                <li><a class="no-underline hover:underline hover:font-bold hover:text-blue-500" href="{% url 'movie_detail' recommended_movie.id %}">{{ recommended_movie.title }}</a></li>
+            {% endfor %}
+        </ul>
+    </div>
     <div class= "text-right">
+        <br>
         <a href="{% url 'index' %}" class="rounded-full bg-green-400 px-3 py-2 text-sm hover:bg-purple-500 
                                         font-semibold text-white shadow-sm 
                                         focus-visible:outline focus-visible:outline-2 

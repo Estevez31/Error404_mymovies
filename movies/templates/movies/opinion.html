@@ -30,10 +30,10 @@
 </script>
 
 <div class= "text-left">
-    <a href="{% url 'index' %}" class="rounded-full bg-green-400 px-3 py-2 text-sm hover:bg-purple-500 
-                                    font-semibold text-white shadow-sm 
-                                    focus-visible:outline focus-visible:outline-2 
-                                    focus-visible:outline-offset-2 focus-visible:outline-gray-600 drop-shadow-md">Return to menu</a>
+    <a href="{% url 'movie_detail' movie.id %}" class="rounded-full bg-green-400 px-3 py-2 text-sm hover:bg-purple-500  
+                                        font-semibold text-white shadow-sm 
+                                        focus-visible:outline focus-visible:outline-2 
+                                        focus-visible:outline-offset-2 focus-visible:outline-gray-600 drop-shadow-md">Go back</a>
 </div>
 
 {% endblock %}

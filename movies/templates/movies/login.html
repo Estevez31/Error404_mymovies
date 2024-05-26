@@ -12,7 +12,8 @@
         <input type="text" id="username" name="username" required><br>
         <label for="password">Password:</label>
         <input type="password" id="password" name="password" required><br>
-        <button type="submit" class="rounded-full bg-green-400 px-3 py-2 text-sm hover:bg-purple-500 
+        <br>
+        <button type="submit" class="rounded-full bg-blue-500 px-3 py-2 text-sm hover:bg-cyan-500 
                                         font-semibold text-white shadow-sm 
                                         focus-visible:outline focus-visible:outline-2 
                                         focus-visible:outline-offset-2 focus-visible:outline-gray-600 drop-shadow-md">Login</button>
@@ -20,5 +21,11 @@
     {% if error %}
         <p style="color: red;">{{ error }}</p>
     {% endif %}
+    <div class="text-right mx-auto">
+        <a href="{% url 'index' %}" class="rounded-full bg-green-400 px-3 py-2 text-sm hover:bg-purple-500 
+                                        font-semibold text-white shadow-sm 
+                                        focus-visible:outline focus-visible:outline-2 
+                                        focus-visible:outline-offset-2 focus-visible:outline-gray-600 drop-shadow-md">Return to menu</a>
+    </div>
 </body>
 {% endblock %}

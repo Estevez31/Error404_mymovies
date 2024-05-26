@@ -9,4 +9,5 @@ urlpatterns = [
     path("movies/<int:movie_id>/opinion/", views.review, name="review"),
     path('movies/login/', views.login_view, name='login'),
     path('logout/', LogoutView.as_view(next_page='index'), name='logout'),
+    path('movies/<int:movie_id>/movie_actors/<str:actor_name>', views.movie_actors_view, name='cast'),
 ]

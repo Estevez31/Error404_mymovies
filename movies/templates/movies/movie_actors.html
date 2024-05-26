@@ -1,0 +1,37 @@
+{% extends "movies/base.html" %}
+
+{% block article %}
+<form hx-post="/movies/{{ movie.id }}/movie_actors/{{ actor.name }}" hx-swap="outerHTML>
+    {% csrf_token %}
+    {{ form }}
+    <div>
+        <div class="flex flex-wrap w-full h-full bg-slate-200 my-4 bg-cyan-200 rounded-r-lg border-l-4 border-blue-500 flex space-x-4 drop-shadow-md">
+            <ul>
+                {% for actor in actors %}
+                {% if actor_image_url %}
+                    <img class="w-24 h-[34rem] sm:w-64 img-movie rounded-md drop-shadow-lg" src="{{ actor_image_url }}" alt="{{ actor.person.name }}">
+                {% endif %}
+                {% endfor %}
+            </ul>
+            <ul div class="w-auto sm:w-4/6 movie-info text-left">
+                {% for actor in actors %}
+                    <li class="text-xl font-bold"> Actor: {{ actor.person.name }}</li>
+                    <li class="text-xl font-semibold">Job: {{ actor.job.name }}</li>
+                    <li class="text-xl font-semibold">Movie: {{ actor.movie }}</li>
+                {% endfor %}
+                {% if actor_biography %}
+                    <br>
+                    <h3  class="text-xl font-semibold">Biography</h3>
+                    <p>{{ actor_biography }}</p>
+                {% endif %}
+            </ul>
+        </div>
+    </div>
+    <div class= "text-right">
+        <a href="{% url 'movie_detail' movie.id %}" class="rounded-full bg-green-400 px-3 py-2 text-sm hover:bg-purple-500  
+                                        font-semibold text-white shadow-sm 
+                                        focus-visible:outline focus-visible:outline-2 
+                                        focus-visible:outline-offset-2 focus-visible:outline-gray-600 drop-shadow-md">Go back</a>
+    </div>
+</form>
+{% endblock %}

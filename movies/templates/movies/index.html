@@ -4,12 +4,12 @@
 {% if movie_list %}
     <div id="movie_list" class="flex flex-wrap">
         {% for movie in movie_list%}
-            <figure class="w-48 h-80 mx-2 my-6 bg-green-100">
-                <img class="w-48 h-64 rounded-md drop-shadow-lg" src="https://image.tmdb.org/t/p/w600_and_h900_bestv2/{{movie.poster_path}}" 
+            <figure class="w-48 h-90 mx-2 my-6 bg-green-100">
+                <img class="rounded-md drop-shadow-lg" src="https://image.tmdb.org/t/p/w600_and_h900_bestv2/{{movie.poster_path}}" 
                 alt="{{movie.title}}">
-                <figurecaption class="p-2" >
-                    <a  class = " mt-2 no-underline hover:underline hover:font-bold hover:text-blue-500" hx-post="/movies/{{ movie.id }}/" hx-swap="innerHTML" href="/movies/{{ movie.id }}/">{{ movie.title }}</a>
-                    <p class="p-2">
+                <figurecaption class="p-2">
+                    <h1 class="text-nowrap text-ellipsis overflow-hidden"></h1><a class = "mt-2 font-semibold no-underline hover:underline hover:font-bold hover:text-blue-500" hx-post="/movies/{{ movie.id }}/" hx-swap="innerHTML" href="/movies/{{ movie.id }}/">{{ movie.title }}</a></h1>
+                    <p class="p-2 font-semibold">
                         {{movie.release_date|date:"Y" }}
                     </p>
                 </figurecaption>
@@ -17,5 +17,4 @@
         {% endfor %}
     </div>
 {% endif %}
-
 {% endblock article %}
