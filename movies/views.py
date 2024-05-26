@@ -7,7 +7,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login
 import requests
 
-api_key = '706e6231b343905d4bcddfa6a6b91de9'
+api_key = 'api'
 
 def review(request, movie_id):
     movie = get_object_or_404(Movie, pk=movie_id)
